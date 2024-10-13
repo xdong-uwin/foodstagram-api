@@ -1,9 +1,8 @@
 package org.scraper.foodstagram.repository;
 
 import org.scraper.foodstagram.repository.entity.Member;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface MemberRepository extends PagingAndSortingRepository<Member, Long>, CrudRepository<Member,Long> {
+public interface MemberRepository extends MongoRepository<Member,Long> {
 
 }
