@@ -4,11 +4,11 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
 
 import java.time.Instant;
 
-@Document("member")
+@Entity
 @Data
 public class Member {
 
