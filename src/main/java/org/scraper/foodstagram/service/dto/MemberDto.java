@@ -1,7 +1,10 @@
 package org.scraper.foodstagram.service.dto;
 
+import lombok.Data;
+
 import java.time.Instant;
 
+@Data
 public class MemberDto {
 
     private String id;
@@ -11,6 +14,8 @@ public class MemberDto {
     private String lastName;
 
     private String email;
+
+    private Boolean isActive;
 
     private String password;
 
