@@ -4,7 +4,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import lombok.RequiredArgsConstructor;
 import org.scraper.foodstagram.mapper.MemberMapper;
 import org.scraper.foodstagram.repository.MemberRepository;
-import org.scraper.foodstagram.service.dto.MemberDto;
+import org.scraper.foodstagram.dto.MemberDto;
 import org.scraper.foodstagram.util.JwtTokenUtil;
 import org.scraper.foodstagram.util.MailUtil;
 import org.springframework.stereotype.Service;

@@ -10,22 +10,26 @@ import java.time.Instant;
 
 @Entity
 @Data
-public class Member {
+public class Recipe {
 
     @Id
     private String id;
 
-    private String firstName;
+    private String title;
 
-    private String lastName;
+    private String description;
 
-    private String email;
+    private String imageUrl;
 
-    private Boolean isActive;
+    private String ingredients;
 
-    private String password;
+    private String steps;
 
-    private Instant birthDate;
+    private String authorId;
+
+    private String likedBy;
+
+    private String comments;
 
     @CreatedDate
     private Instant createdAt;

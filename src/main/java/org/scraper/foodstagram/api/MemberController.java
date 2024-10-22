@@ -2,8 +2,8 @@ package org.scraper.foodstagram.api;
 
 import lombok.RequiredArgsConstructor;
 import org.scraper.foodstagram.service.MemberService;
-import org.scraper.foodstagram.service.dto.LoginDto;
-import org.scraper.foodstagram.service.dto.MemberDto;
+import org.scraper.foodstagram.dto.LoginDto;
+import org.scraper.foodstagram.dto.MemberDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

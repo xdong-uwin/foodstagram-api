@@ -1,4 +1,4 @@
-package org.scraper.foodstagram.service.dto;
+package org.scraper.foodstagram.dto;
 
 import lombok.Data;
 
