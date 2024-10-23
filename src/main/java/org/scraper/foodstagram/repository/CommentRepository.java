@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CommentRepository extends PagingAndSortingRepository<Comment, String>, CrudRepository<Comment, String> {
+public interface CommentRepository extends PagingAndSortingRepository<Comment, Long>, CrudRepository<Comment, Long> {
 
-    List<Comment> findByRecipeId(String recipeId);
+    List<Comment> findByRecipeId(Long recipeId);
 }

@@ -16,10 +16,12 @@ public interface RecipeMapper {
 
     @Mapping(target = "ingredients", expression = "java(convertIngredientStringToList(recipe.getIngredients()))")
     @Mapping(target = "steps", expression = "java(convertStepStringToList(recipe.getSteps()))")
+    @Mapping(target = "likedBy", expression = "java(convertLikedByStringToList(recipe.getLikedBy()))")
     RecipeDto toDto(Recipe recipe);
 
     @Mapping(target = "ingredients", expression = "java(convertIngredientListToString(recipeDto.getIngredients()))")
     @Mapping(target = "steps", expression = "java(convertStepListToString(recipeDto.getSteps()))")
+    @Mapping(target = "likedBy", expression = "java(convertLikedByListToString(recipeDto.getLikedBy()))")
     Recipe toEntity(RecipeDto recipeDto);
 
     default String convertIngredientListToString(List<Ingredient> ingredients) {
@@ -40,6 +42,15 @@ public interface RecipeMapper {
         }
     }
 
+    default String convertLikedByListToString(List<Long> likedBy) {
+        try {
+            var objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(likedBy);
+        } catch (JsonProcessingException exception) {
+            throw new RuntimeException("Error converting list to JSON string", exception);
+        }
+    }
+
     default List<Ingredient> convertIngredientStringToList(String ingredients) {
         try {
             var objectMapper = new ObjectMapper();
@@ -53,6 +64,15 @@ public interface RecipeMapper {
         try {
             var objectMapper = new ObjectMapper();
             return objectMapper.readValue(steps, objectMapper.getTypeFactory().constructCollectionType(List.class, Step.class));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error converting JSON string to list", e);
+        }
+    }
+
+    default List<Long> convertLikedByStringToList(String likedBy) {
+        try {
+            var objectMapper = new ObjectMapper();
+            return objectMapper.readValue(likedBy, objectMapper.getTypeFactory().constructCollectionType(List.class, Long.class));
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error converting JSON string to list", e);
         }

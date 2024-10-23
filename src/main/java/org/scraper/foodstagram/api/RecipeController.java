@@ -34,27 +34,27 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-    public RecipeDto getRecipe(@PathVariable String id) {
+    public RecipeDto getRecipe(@PathVariable Long id) {
         return recipeService.getRecipe(id);
     }
 
     @PutMapping("/{id}")
-    public RecipeDto updateRecipe(@PathVariable String id, @RequestBody RecipeDto recipeDto) {
+    public RecipeDto updateRecipe(@PathVariable Long id, @RequestBody RecipeDto recipeDto) {
         return recipeService.updateRecipe(id, recipeDto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRecipe(@PathVariable String id) {
+    public void deleteRecipe(@PathVariable Long id) {
         recipeService.deleteRecipe(id);
     }
 
     @PatchMapping("/{recipeId}/like")
-    public void likeRecipe(@PathVariable String recipeId, @RequestParam String memberId) {
+    public void likeRecipe(@PathVariable Long recipeId, @RequestParam Long memberId) {
         recipeService.likeRecipe(recipeId, memberId);
     }
 
     @PatchMapping("/{recipeId}/unlike")
-    public void unlikeRecipe(@PathVariable String recipeId, @RequestParam String memberId) {
+    public void unlikeRecipe(@PathVariable Long recipeId, @RequestParam Long memberId) {
         recipeService.unlikeRecipe(recipeId, memberId);
     }
 }

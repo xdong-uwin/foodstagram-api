@@ -7,11 +7,11 @@ import java.time.Instant;
 @Data
 public class CommentDto {
 
-    private String id;
+    private Long id;
 
-    private String recipeId;
+    private Long recipeId;
 
-    private String authorId;
+    private Long authorId;
 
     private String content;
 

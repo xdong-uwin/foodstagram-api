@@ -25,7 +25,7 @@ public class CommentController {
     }
 
     @GetMapping("/{recipeId}/comments")
-    public List<CommentDto> getComments(@PathVariable String recipeId) {
+    public List<CommentDto> getComments(@PathVariable Long recipeId) {
         return commentService.getComments(recipeId);
     }
 }

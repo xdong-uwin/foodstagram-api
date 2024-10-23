@@ -1,6 +1,8 @@
 package org.scraper.foodstagram.repository.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,11 +15,12 @@ import java.time.Instant;
 public class Comment {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String recipeId;
+    private Long recipeId;
 
-    private String authorId;
+    private Long authorId;
 
     private String content;
 

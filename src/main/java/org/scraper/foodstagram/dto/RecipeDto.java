@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class RecipeDto {
 
-    private String id;
+    private Long id;
 
     private String title;
 
@@ -20,9 +20,11 @@ public class RecipeDto {
 
     private List<Step> steps;
 
-    private String authorId;
+    private Long authorId;
 
-    private List<String> likedBy;
+    private List<Long> likedBy;
+
+    private List<CommentDto> comments;
 
     private Instant createdAt;
 

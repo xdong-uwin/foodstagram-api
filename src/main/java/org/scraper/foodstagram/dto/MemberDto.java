@@ -7,7 +7,7 @@ import java.time.Instant;
 @Data
 public class MemberDto {
 
-    private String id;
+    private Long id;
 
     private String firstName;
 

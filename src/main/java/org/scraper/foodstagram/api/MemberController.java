@@ -1,9 +1,11 @@
 package org.scraper.foodstagram.api;
 
 import lombok.RequiredArgsConstructor;
-import org.scraper.foodstagram.service.MemberService;
 import org.scraper.foodstagram.dto.LoginDto;
 import org.scraper.foodstagram.dto.MemberDto;
+import org.scraper.foodstagram.service.MemberService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,13 +21,14 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public MemberDto register(MemberDto memberDto) {
+    public MemberDto register(@RequestBody MemberDto memberDto) {
         return memberService.register(memberDto);
     }
 
     @GetMapping("/email/verify")
-    public void verifyEmail(@RequestParam String token) {
+    public ResponseEntity<Boolean> verifyEmail(@RequestParam String token) {
         memberService.verifyEmail(token);
+        return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 
     @PostMapping("/login")

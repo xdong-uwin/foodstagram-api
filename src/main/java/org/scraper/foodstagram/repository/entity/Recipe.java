@@ -1,6 +1,8 @@
 package org.scraper.foodstagram.repository.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +15,8 @@ import java.time.Instant;
 public class Recipe {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String title;
 
@@ -25,11 +28,9 @@ public class Recipe {
 
     private String steps;
 
-    private String authorId;
+    private Long authorId;
 
     private String likedBy;
-
-    private String comments;
 
     @CreatedDate
     private Instant createdAt;

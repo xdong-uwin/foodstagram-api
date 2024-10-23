@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MemberRepository extends PagingAndSortingRepository<Member, String>, CrudRepository<Member, String> {
+public interface MemberRepository extends PagingAndSortingRepository<Member, Long>, CrudRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
 }

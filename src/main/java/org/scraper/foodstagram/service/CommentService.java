@@ -20,7 +20,7 @@ public class CommentService {
         commentRepository.save(commentMapper.toEntity(commentDto));
     }
 
-    public List<CommentDto> getComments(String recipeId) {
+    public List<CommentDto> getComments(Long recipeId) {
         return commentRepository.findByRecipeId(recipeId).stream()
                 .map(commentMapper::toDto)
                 .toList();
