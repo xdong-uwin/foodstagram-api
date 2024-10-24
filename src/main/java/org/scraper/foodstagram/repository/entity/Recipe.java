@@ -5,8 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -28,13 +28,15 @@ public class Recipe {
 
     private String steps;
 
+    private String tags;
+
     private Long authorId;
 
     private String likedBy;
 
-    @CreatedDate
+    @CreationTimestamp
     private Instant createdAt;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     private Instant updatedAt;
 }

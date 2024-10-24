@@ -17,11 +17,13 @@ public interface RecipeMapper {
     @Mapping(target = "ingredients", expression = "java(convertIngredientStringToList(recipe.getIngredients()))")
     @Mapping(target = "steps", expression = "java(convertStepStringToList(recipe.getSteps()))")
     @Mapping(target = "likedBy", expression = "java(convertLikedByStringToList(recipe.getLikedBy()))")
+    @Mapping(target = "tags", expression = "java(convertTagsStringToList(recipe.getTags()))")
     RecipeDto toDto(Recipe recipe);
 
     @Mapping(target = "ingredients", expression = "java(convertIngredientListToString(recipeDto.getIngredients()))")
     @Mapping(target = "steps", expression = "java(convertStepListToString(recipeDto.getSteps()))")
     @Mapping(target = "likedBy", expression = "java(convertLikedByListToString(recipeDto.getLikedBy()))")
+    @Mapping(target = "tags", expression = "java(convertTagsListToString(recipeDto.getTags()))")
     Recipe toEntity(RecipeDto recipeDto);
 
     default String convertIngredientListToString(List<Ingredient> ingredients) {
@@ -51,6 +53,15 @@ public interface RecipeMapper {
         }
     }
 
+    default String convertTagsListToString(List<String> tags) {
+        try {
+            var objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(tags);
+        } catch (JsonProcessingException exception) {
+            throw new RuntimeException("Error converting list to JSON string", exception);
+        }
+    }
+
     default List<Ingredient> convertIngredientStringToList(String ingredients) {
         try {
             var objectMapper = new ObjectMapper();
@@ -73,6 +84,15 @@ public interface RecipeMapper {
         try {
             var objectMapper = new ObjectMapper();
             return objectMapper.readValue(likedBy, objectMapper.getTypeFactory().constructCollectionType(List.class, Long.class));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error converting JSON string to list", e);
+        }
+    }
+
+    default List<String> convertTagsStringToList(String tags) {
+        try {
+            var objectMapper = new ObjectMapper();
+            return objectMapper.readValue(tags, objectMapper.getTypeFactory().constructCollectionType(List.class, String.class));
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error converting JSON string to list", e);
         }

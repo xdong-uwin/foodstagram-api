@@ -20,6 +20,8 @@ public class RecipeDto {
 
     private List<Step> steps;
 
+    private List<String> tags;
+
     private Long authorId;
 
     private List<Long> likedBy;
