@@ -5,6 +5,7 @@ import org.scraper.foodstagram.dto.RecipeTagDto;
 import org.scraper.foodstagram.service.ConfigurationService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class ConfigurationController {
     }
 
     @PostMapping("/recipe-tags")
-    public RecipeTagDto addRecipeTag(RecipeTagDto recipeTagDto) {
+    public RecipeTagDto addRecipeTag(@RequestBody RecipeTagDto recipeTagDto) {
         return configurationService.addRecipeTag(recipeTagDto);
     }
 }
