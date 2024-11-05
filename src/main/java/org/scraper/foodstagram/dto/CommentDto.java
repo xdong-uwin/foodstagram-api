@@ -1,10 +1,12 @@
 package org.scraper.foodstagram.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
 
 @Data
+@Builder
 public class CommentDto {
 
     private Long id;

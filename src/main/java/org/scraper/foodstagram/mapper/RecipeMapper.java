@@ -18,6 +18,7 @@ public interface RecipeMapper {
     @Mapping(target = "steps", expression = "java(convertStepStringToList(recipe.getSteps()))")
     @Mapping(target = "likedBy", expression = "java(convertLikedByStringToList(recipe.getLikedBy()))")
     @Mapping(target = "tags", expression = "java(convertTagsStringToList(recipe.getTags()))")
+    @Mapping(target = "comments", ignore = true)
     RecipeDto toDto(Recipe recipe);
 
     @Mapping(target = "ingredients", expression = "java(convertIngredientListToString(recipeDto.getIngredients()))")
@@ -91,6 +92,9 @@ public interface RecipeMapper {
 
     default List<String> convertTagsStringToList(String tags) {
         try {
+            if (tags == null) {
+                return List.of();
+            }
             var objectMapper = new ObjectMapper();
             return objectMapper.readValue(tags, objectMapper.getTypeFactory().constructCollectionType(List.class, String.class));
         } catch (JsonProcessingException e) {
