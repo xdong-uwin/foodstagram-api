@@ -27,6 +27,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.12.6'
     implementation 'com.mashape.unirest:unirest-java:1.4.9'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0'
+    implementation 'com.dropbox.core:dropbox-core-sdk:7.0.0'
 
 
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
