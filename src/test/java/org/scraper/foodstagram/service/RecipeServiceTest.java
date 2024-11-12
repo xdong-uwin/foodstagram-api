@@ -6,6 +6,7 @@ import org.scraper.foodstagram.dto.Ingredient;
 import org.scraper.foodstagram.dto.RecipeDto;
 import org.scraper.foodstagram.dto.Step;
 import org.scraper.foodstagram.mapper.RecipeMapper;
+import org.scraper.foodstagram.repository.MemberRepository;
 import org.scraper.foodstagram.repository.RecipeRepository;
 import org.scraper.foodstagram.repository.entity.Recipe;
 
@@ -21,13 +22,15 @@ class RecipeServiceTest {
     private static RecipeRepository recipeRepository;
     private static RecipeMapper recipeMapper;
     private static CommentService commentService;
+    private static MemberRepository memberRepository;
 
     @BeforeAll
     static void setUp() {
         recipeRepository = mock(RecipeRepository.class);
         recipeMapper = mock(RecipeMapper.class);
         commentService = mock(CommentService.class);
-        recipeService = new RecipeService(recipeRepository, recipeMapper, commentService);
+        memberRepository = mock(MemberRepository.class);
+        recipeService = new RecipeService(recipeRepository, recipeMapper, commentService, memberRepository);
     }
 
     @Test
