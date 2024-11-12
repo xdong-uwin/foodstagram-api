@@ -3,6 +3,7 @@ package org.scraper.foodstagram.service;
 import lombok.RequiredArgsConstructor;
 import org.scraper.foodstagram.dto.RecipeDto;
 import org.scraper.foodstagram.mapper.RecipeMapper;
+import org.scraper.foodstagram.repository.MemberRepository;
 import org.scraper.foodstagram.repository.RecipeRepository;
 import org.scraper.foodstagram.repository.entity.Recipe;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class RecipeService {
     private final RecipeMapper recipeMapper;
 
     private final CommentService commentService;
+    private final MemberRepository memberRepository;
 
     public RecipeDto createRecipe(RecipeDto recipeDto) {
         setDefaultValuesForNewRecipe(recipeDto);
@@ -36,13 +38,23 @@ public class RecipeService {
     public List<RecipeDto> getRecipes() {
         return StreamSupport.stream(recipeRepository.findAll().spliterator(), false)
                 .map(this::getRecipeFullInfo)
+                .map(this::fillAuthorInfo)
                 .collect(Collectors.toList());
     }
 
     public RecipeDto getRecipe(Long id) {
         return recipeRepository.findById(id)
                 .map(this::getRecipeFullInfo)
+                .map(this::fillAuthorInfo)
                 .orElseThrow(() -> new RuntimeException("Recipe not found with ID: " + id));
+    }
+
+    private RecipeDto fillAuthorInfo(RecipeDto recipeDto) {
+        var member = memberRepository.findById(recipeDto.getAuthorId())
+                .orElseThrow(() -> new RuntimeException("Member not found with ID: " + recipeDto.getAuthorId()));
+        var author = member.getFirstName() + " " + member.getLastName();
+        recipeDto.setAuthor(author);
+        return recipeDto;
     }
 
     public RecipeDto updateRecipe(Long id, RecipeDto recipeDto) {

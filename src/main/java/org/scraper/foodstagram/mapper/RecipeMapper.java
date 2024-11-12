@@ -19,6 +19,7 @@ public interface RecipeMapper {
     @Mapping(target = "likedBy", expression = "java(convertLikedByStringToList(recipe.getLikedBy()))")
     @Mapping(target = "tags", expression = "java(convertTagsStringToList(recipe.getTags()))")
     @Mapping(target = "comments", ignore = true)
+    @Mapping(target = "author", ignore = true)
     RecipeDto toDto(Recipe recipe);
 
     @Mapping(target = "ingredients", expression = "java(convertIngredientListToString(recipeDto.getIngredients()))")

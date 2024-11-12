@@ -24,6 +24,8 @@ public class RecipeDto {
 
     private Long authorId;
 
+    private String author;
+
     private List<Long> likedBy;
 
     private List<CommentDto> comments;
