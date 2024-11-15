@@ -56,7 +56,7 @@ public class MemberService {
                 throw new RuntimeException("Email not verified: " + email);
             }
             if (!member.getPassword().equals(password)) {
-                throw new RuntimeException("Invalid password: " + email);
+                throw new RuntimeException("Invalid password");
             }
         }, () -> {
             throw new RuntimeException("Member not found with email: " + email);

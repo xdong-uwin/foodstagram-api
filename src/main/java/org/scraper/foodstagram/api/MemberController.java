@@ -32,8 +32,8 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<Boolean> login(@RequestBody LoginDto loginDto) {
         memberService.login(loginDto.getEmail(), loginDto.getPassword());
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 }
