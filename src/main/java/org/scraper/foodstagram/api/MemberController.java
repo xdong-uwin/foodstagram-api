@@ -32,7 +32,8 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<Void> login(@RequestBody LoginDto loginDto) {
         memberService.login(loginDto.getEmail(), loginDto.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
