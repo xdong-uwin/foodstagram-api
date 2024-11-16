@@ -96,4 +96,11 @@ public class RecipeService {
         recipeDto.setComments(commentService.getComments(recipe.getId()));
         return recipeDto;
     }
+
+    public List<RecipeDto> searchRecipesByKeyword(String keyword) {
+        return recipeRepository.findByTitleOrDescriptionContainingOrderByCreatedAt(keyword).stream()
+                .map(this::getRecipeFullInfo)
+                .map(this::fillAuthorInfo)
+                .collect(Collectors.toList());
+    }
 }

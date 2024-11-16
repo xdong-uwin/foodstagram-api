@@ -38,6 +38,11 @@ public class RecipeController {
         return recipeService.getRecipe(id);
     }
 
+    @GetMapping
+    public List<RecipeDto> searchRecipesByKeyword(@RequestParam String keyword) {
+        return recipeService.searchRecipesByKeyword(keyword);
+    }
+
     @PutMapping("/{id}")
     public RecipeDto updateRecipe(@PathVariable Long id, @RequestBody RecipeDto recipeDto) {
         return recipeService.updateRecipe(id, recipeDto);
