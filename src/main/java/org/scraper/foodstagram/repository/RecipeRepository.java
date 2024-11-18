@@ -11,7 +11,10 @@ import java.util.Set;
 @Repository
 public interface RecipeRepository extends PagingAndSortingRepository<Recipe, Long>, CrudRepository<Recipe, Long> {
 
-    @Query("SELECT recipe FROM Recipe recipe WHERE recipe.title LIKE %?1% OR recipe.description LIKE %?1% ORDER BY recipe.createdAt DESC")
+    @Query("SELECT recipe FROM Recipe recipe WHERE " +
+            "(?1 is null OR recipe.title LIKE %?1%) OR " +
+            "(?1 is null OR recipe.description LIKE %?1%) " +
+            "ORDER BY recipe.createdAt DESC")
     Set<Recipe> findByTitleOrDescriptionContainingOrderByCreatedAt(String keyword);
 
 }

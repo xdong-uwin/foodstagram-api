@@ -28,18 +28,13 @@ public class RecipeController {
         return recipeService.createRecipe(recipeDto);
     }
 
-    @GetMapping
-    public List<RecipeDto> getRecipes() {
-        return recipeService.getRecipes();
-    }
-
     @GetMapping("/{id}")
     public RecipeDto getRecipe(@PathVariable Long id) {
         return recipeService.getRecipe(id);
     }
 
     @GetMapping
-    public List<RecipeDto> searchRecipesByKeyword(@RequestParam String keyword) {
+    public List<RecipeDto> searchRecipesByKeyword(@RequestParam(required = false) String keyword) {
         return recipeService.searchRecipesByKeyword(keyword);
     }
 
