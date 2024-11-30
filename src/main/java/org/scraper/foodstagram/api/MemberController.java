@@ -2,6 +2,7 @@ package org.scraper.foodstagram.api;
 
 import lombok.RequiredArgsConstructor;
 import org.scraper.foodstagram.dto.LoginDto;
+import org.scraper.foodstagram.dto.LoginResponse;
 import org.scraper.foodstagram.dto.MemberDto;
 import org.scraper.foodstagram.service.MemberService;
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,8 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody LoginDto loginDto) {
-        memberService.login(loginDto.getEmail(), loginDto.getPassword());
-        return ResponseEntity.status(HttpStatus.OK).body(true);
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginDto loginDto) {
+        Long memberId = memberService.login(loginDto.getEmail(), loginDto.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body(LoginResponse.builder().memberId(memberId).build());
     }
 }

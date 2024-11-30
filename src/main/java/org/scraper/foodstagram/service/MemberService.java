@@ -50,17 +50,18 @@ public class MemberService {
         });
     }
 
-    public void login(String email, String password) {
+    public Long login(String email, String password) {
         memberRepository.findByEmail(email).ifPresentOrElse(member -> {
             if (!member.getIsActive()) {
                 throw new RuntimeException("Email not verified: " + email);
             }
             if (!member.getPassword().equals(password)) {
-                throw new RuntimeException("Invalid password");
+                throw new RuntimeException("Invalid password: " + email);
             }
         }, () -> {
             throw new RuntimeException("Member not found with email: " + email);
         });
+        return memberRepository.findByEmail(email).orElseThrow().getId();
     }
 
 }
