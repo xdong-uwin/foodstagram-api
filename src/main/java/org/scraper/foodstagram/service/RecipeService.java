@@ -103,4 +103,12 @@ public class RecipeService {
                 .map(this::fillAuthorInfo)
                 .collect(Collectors.toList());
     }
+
+    public List<RecipeDto> getFavouriteRecipes(String memberId) {
+        return StreamSupport.stream(recipeRepository.findAll().spliterator(), false)
+                .filter(recipe -> recipe.getLikedBy().contains(memberId))
+                .map(this::getRecipeFullInfo)
+                .map(this::fillAuthorInfo)
+                .collect(Collectors.toList());
+    }
 }
