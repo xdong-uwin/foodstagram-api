@@ -21,6 +21,9 @@ public class RecipeService {
     private final RecipeMapper recipeMapper;
 
     private final CommentService commentService;
+
+    private final NotificationService notificationService;
+
     private final MemberRepository memberRepository;
 
     public RecipeDto createRecipe(RecipeDto recipeDto) {
@@ -79,6 +82,9 @@ public class RecipeService {
         var likedBys = recipe.getLikedBy();
         likedBys.add(memberId);
         recipe.setLikedBy(likedBys);
+        if (!recipe.getAuthorId().equals(memberId)) {
+            notificationService.createLikeNotification(recipe.getAuthorId(), recipe, memberId);
+        }
         recipeRepository.save(recipeMapper.toEntity(recipe));
     }
 
