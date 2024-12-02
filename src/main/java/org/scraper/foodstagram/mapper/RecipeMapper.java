@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.scraper.foodstagram.dto.Ingredient;
 import org.scraper.foodstagram.dto.RecipeDto;
+import org.scraper.foodstagram.dto.RecipeRequest;
 import org.scraper.foodstagram.dto.Step;
 import org.scraper.foodstagram.repository.entity.Recipe;
 
@@ -21,6 +22,12 @@ public interface RecipeMapper {
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "author", ignore = true)
     RecipeDto toDto(Recipe recipe);
+
+    @Mapping(target = "ingredients", expression = "java(convertIngredientListToString(recipeRequest.getIngredients()))")
+    @Mapping(target = "steps", expression = "java(convertStepListToString(recipeRequest.getSteps()))")
+    @Mapping(target = "likedBy", expression = "java(convertLikedByListToString(recipeRequest.getLikedBy()))")
+    @Mapping(target = "tags", expression = "java(convertTagsListToString(recipeRequest.getTags()))")
+    Recipe toEntity(RecipeRequest recipeRequest);
 
     @Mapping(target = "ingredients", expression = "java(convertIngredientListToString(recipeDto.getIngredients()))")
     @Mapping(target = "steps", expression = "java(convertStepListToString(recipeDto.getSteps()))")

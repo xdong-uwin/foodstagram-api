@@ -2,10 +2,12 @@ package org.scraper.foodstagram.service;
 
 import lombok.RequiredArgsConstructor;
 import org.scraper.foodstagram.dto.RecipeDto;
+import org.scraper.foodstagram.dto.RecipeRequest;
 import org.scraper.foodstagram.mapper.RecipeMapper;
 import org.scraper.foodstagram.repository.MemberRepository;
 import org.scraper.foodstagram.repository.RecipeRepository;
 import org.scraper.foodstagram.repository.entity.Recipe;
+import org.scraper.foodstagram.repository.file.DropboxStorage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +28,18 @@ public class RecipeService {
 
     private final MemberRepository memberRepository;
 
-    public RecipeDto createRecipe(RecipeDto recipeDto) {
+    private final DropboxStorage dropboxStorage;
+
+    public RecipeDto createRecipe(RecipeRequest recipeDto) {
         setDefaultValuesForNewRecipe(recipeDto);
-        var savedRecipe = recipeRepository.save(recipeMapper.toEntity(recipeDto));
+        var recipeEntity = recipeMapper.toEntity(recipeDto);
+        var imageUrl = dropboxStorage.upload(recipeDto.getImage());
+        recipeEntity.setImageUrl(imageUrl);
+        var savedRecipe = recipeRepository.save(recipeEntity);
         return recipeMapper.toDto(savedRecipe);
     }
 
-    private void setDefaultValuesForNewRecipe(RecipeDto recipeDto) {
+    private void setDefaultValuesForNewRecipe(RecipeRequest recipeDto) {
         recipeDto.setLikedBy(List.of());
         recipeDto.setComments(List.of());
     }

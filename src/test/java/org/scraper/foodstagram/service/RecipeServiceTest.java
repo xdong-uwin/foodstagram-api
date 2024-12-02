@@ -3,7 +3,7 @@ package org.scraper.foodstagram.service;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.scraper.foodstagram.dto.Ingredient;
-import org.scraper.foodstagram.dto.RecipeDto;
+import org.scraper.foodstagram.dto.RecipeRequest;
 import org.scraper.foodstagram.dto.Step;
 import org.scraper.foodstagram.mapper.RecipeMapper;
 import org.scraper.foodstagram.repository.MemberRepository;
@@ -23,6 +23,7 @@ class RecipeServiceTest {
     private static RecipeMapper recipeMapper;
     private static CommentService commentService;
     private static MemberRepository memberRepository;
+    private static NotificationService notificationService;
 
     @BeforeAll
     static void setUp() {
@@ -30,18 +31,18 @@ class RecipeServiceTest {
         recipeMapper = mock(RecipeMapper.class);
         commentService = mock(CommentService.class);
         memberRepository = mock(MemberRepository.class);
-        recipeService = new RecipeService(recipeRepository, recipeMapper, commentService, memberRepository);
+        recipeService = new RecipeService(recipeRepository, recipeMapper, commentService, notificationService, memberRepository);
     }
 
     @Test
     void should_create_recipe_successfully() {
         // given
-        RecipeDto recipeDto = new RecipeDto();
-        recipeDto.setTitle("Recipe title");
-        recipeDto.setDescription("Recipe description");
-        recipeDto.setImageUrl("Recipe image URL");
-        recipeDto.setIngredients(List.of(new Ingredient("Ingredient 1", "5", "gram"), new Ingredient("Ingredient 2", "15", "gram")));
-        recipeDto.setSteps(List.of(new Step(1, "Step 1"), new Step(2, "Step 2")));
+        RecipeRequest recipeRequest = new RecipeRequest();
+        recipeRequest.setTitle("Recipe title");
+        recipeRequest.setDescription("Recipe description");
+        recipeRequest.setImageUrl("Recipe image URL");
+        recipeRequest.setIngredients(List.of(new Ingredient("Ingredient 1", "5", "gram"), new Ingredient("Ingredient 2", "15", "gram")));
+        recipeRequest.setSteps(List.of(new Step(1, "Step 1"), new Step(2, "Step 2")));
 
         Recipe recipe = new Recipe();
         recipe.setTitle("Recipe title");
@@ -50,10 +51,10 @@ class RecipeServiceTest {
         recipe.setIngredients("{\"ingredients\":[{\"name\":\"Ingredient 1\",\"amount\":\"5\",\"unit\":\"gram\"},{\"name\":\"Ingredient 2\",\"amount\":\"15\",\"unit\":\"gram\"}}");
         recipe.setSteps("{\"steps\":[{\"number\":1,\"description\":\"Step 1\"},{\"number\":2,\"description\":\"Step 2\"}]");
 
-        when(recipeMapper.toEntity(recipeDto)).thenReturn(recipe);
+        when(recipeMapper.toEntity(recipeRequest)).thenReturn(recipe);
 
         // when
-        recipeService.createRecipe(recipeDto);
+        recipeService.createRecipe(recipeRequest);
 
         // then
         verify(recipeRepository).save(recipe);

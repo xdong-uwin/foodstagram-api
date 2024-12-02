@@ -2,6 +2,7 @@ package org.scraper.foodstagram.api;
 
 import lombok.RequiredArgsConstructor;
 import org.scraper.foodstagram.dto.RecipeDto;
+import org.scraper.foodstagram.dto.RecipeRequest;
 import org.scraper.foodstagram.service.RecipeService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +25,8 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @PostMapping
-    public RecipeDto createRecipe(@RequestBody RecipeDto recipeDto) {
-        return recipeService.createRecipe(recipeDto);
+    public RecipeDto createRecipe(@RequestBody RecipeRequest recipeRequest) {
+        return recipeService.createRecipe(recipeRequest);
     }
 
     @GetMapping("/{id}")
