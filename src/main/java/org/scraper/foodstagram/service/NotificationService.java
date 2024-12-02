@@ -43,4 +43,12 @@ public class NotificationService {
                 .build();
         notificationRepository.save(notification);
     }
+
+    public void markAsRead(Long notificationId) {
+        notificationRepository.findById(notificationId)
+                .ifPresent(notification -> {
+                    notification.setIsRead(true);
+                    notificationRepository.save(notification);
+                });
+    }
 }
