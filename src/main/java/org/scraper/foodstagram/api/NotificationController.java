@@ -5,6 +5,7 @@ import org.scraper.foodstagram.dto.NotificationDto;
 import org.scraper.foodstagram.service.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ public class NotificationController {
         return ResponseEntity.ok(notificationService.getNotifications(memberId));
     }
 
-    @GetMapping("/{notificationId}/read")
+    @PatchMapping("/{notificationId}/read")
     public ResponseEntity<Boolean> markAsRead(@PathVariable Long notificationId) {
         notificationService.markAsRead(notificationId);
         return ResponseEntity.ok(true);
