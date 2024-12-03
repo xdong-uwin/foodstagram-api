@@ -33,8 +33,10 @@ public class RecipeService {
     public RecipeDto createRecipe(RecipeRequest recipeDto) {
         setDefaultValuesForNewRecipe(recipeDto);
         var recipeEntity = recipeMapper.toEntity(recipeDto);
-        var imageUrl = dropboxStorage.upload(recipeDto.getImage());
-        recipeEntity.setImageUrl(imageUrl);
+        if (recipeDto.getImage() != null) {
+            var imageUrl = dropboxStorage.upload(recipeDto.getImage());
+            recipeEntity.setImageUrl(imageUrl);
+        }
         var savedRecipe = recipeRepository.save(recipeEntity);
         return recipeMapper.toDto(savedRecipe);
     }
